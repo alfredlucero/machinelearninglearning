@@ -100,3 +100,28 @@ How to store datasets in JS:
   - look at the 'k' top records. What was the most common bucket?
 
   - Whichever bucket came up most frequently is the one ours will probably go in
+
+  - bounciness not making as much of an impact for k since it's a tiny factor in the pythagorean theorem calculation i.e. 0.55 - 0.52 squared = 0.009
+
+    - we must take the original data and normalize it i.e. normalize the drop position such that it doesn't have such a huge effect on the k
+
+    - we normalize by scaling and mapping data between 0 and 1 with a minmax method
+
+    - normalized dataset = (featureValue - minOfFeatureValues) / (maxOfFeatureValues - minOfFeatureValues)
+      ->
+      200 .1
+      150 0
+      650 1
+      430 .56
+
+    - weighting our ball drop position and bounciness equally makes our predictions worse than guessing - why?
+
+      - changes to drop position -> predictable changes to output
+
+      - changes to ball bounciness -> changes our output, but not predictably
+
+    - we can also standardize by basing numbers around 0 for a normal distribution around -1 and 1 standard deviations
+
+    - feature selection: deciding which features to include in analysis
+
+      - can run knn only based on drop position and record accuracy - 30% (only good predictor out of the 3 features); do the same for bounciness and record accuracy - 10%; ball size - 10% -> objective feature selection by picking only one at a time and seeing how it fares
