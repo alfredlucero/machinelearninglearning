@@ -214,3 +214,31 @@ features
 
 // $220,000 is the guess of the price of the house given [-121, 47] latitude/longitude
 ```
+
+Say using latitude, longitude, and sqft lot as the features, we should use standardization to help us
+i.e. average sqft lot is 0 and the rest of the points are around the average like within -1 and 1 standard deviation
+
+vs. normalization for sqft lot since we have small number of max value of 1 million, most around 5000, and small number of min values in the hundreds
+
+Standardization = (value - average) / standard deviation
+
+standard deviation = sqrt(variance)
+
+```js
+// Standardization example
+const numbers = tf.tensor([
+  [1, 2],
+  [3, 4],
+  [5, 6],
+]);
+
+// Default works like sum (average of all the elements together), so we need a second argument to handle
+// tf.moments(data, 0) -> column computations
+// tf.moments(data, 1) -> row computations
+const { mean, variance } = tf.moments(numbers, 0);
+// [3,4] for mean, [2.67, 2.67] for variance
+
+// Standardization = (value - average) / standard deviation
+numbers.sub(mean).div(variance.pow(0.5));
+// [[-1.22, -1.22], [0,0], [1.22,1.22]]
+```
