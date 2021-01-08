@@ -38,8 +38,10 @@ console.log("Test labels (house values)", testLabels);
 features = tf.tensor(features);
 labels = tf.tensor(labels);
 
-const result = knn(features, labels, tf.tensor(testFeatures[0]), 10);
-// Error = (expected value - predicted value) / expected value
-const error = (testLabels[0][0] - result) / testLabels[0][0];
-console.log("Guess", result, "Actual Test House Value", testLabels[0][0]);
-console.log("Error", error);
+testFeatures.forEach((testPoint, i) => {
+  const result = knn(features, labels, tf.tensor(testPoint), 10);
+  // Error = (expected value - predicted value) / expected value
+  const error = (testLabels[i][0] - result) / testLabels[i][0];
+  console.log("Guess", result, "Actual Test House Value", testLabels[i][0]);
+  console.log("Error", error * 100);
+});
