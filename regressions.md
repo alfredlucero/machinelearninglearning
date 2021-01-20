@@ -54,3 +54,15 @@ Much faster version with way less code but harder to understand with TensorFlow 
       - in second row calculated the slope of MSE with respect to b (d1 + d2 + ... + dn) => B SLOPE
 
   - after calculating slopes of M and B, we update M and B with as well
+
+- Refactor steps
+
+  - Turn 'features' and 'label's into tensors
+
+  - Append a column of ones to the feature tensor
+
+  - Make tensor for weights
+
+  - Refactor gradient descent to use new equation
+
+  - vectorized solution with matrices
