@@ -16,10 +16,6 @@ const regression = new LinearRegression(features, labels, {
 });
 
 regression.train();
+const r2 = regression.test(testFeatures, testLabels);
 
-console.log(
-  "Updated M is:",
-  regression.weights.get(1, 0),
-  "Updated B is:",
-  regression.weights.get(0, 0)
-);
+console.log("R2 is", r2);

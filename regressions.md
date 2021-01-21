@@ -66,3 +66,17 @@ Much faster version with way less code but harder to understand with TensorFlow 
   - Refactor gradient descent to use new equation
 
   - vectorized solution with matrices
+
+- Evaluating accuracy by
+
+  - train model with training data
+
+  - use 'test' data to make predictions about observations with known labels
+
+  - gauge accuracy by calculating 'coefficient of determination' -> R^2 value = 1 - SSres/SStot; how good our fit is with the actual data
+
+    - sum of squares residual (summation i to n)(actual - predicted)^2; find difference from predicted trendline and the actual (label - predicted)
+
+    - sum of squares total (summation i to n)(actual - average)^2; baseline accuracy value (label - predicted)
+
+    - negative values mean we're far off from being accurate (residual sum of squares is larger than the total, means it's way worse than using the mean/average value of the dataset rather than fancy analysis)
