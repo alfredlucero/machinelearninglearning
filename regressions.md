@@ -80,3 +80,39 @@ Much faster version with way less code but harder to understand with TensorFlow 
     - sum of squares total (summation i to n)(actual - average)^2; baseline accuracy value (label - predicted)
 
     - negative values mean we're far off from being accurate (residual sum of squares is larger than the total, means it's way worse than using the mean/average value of the dataset rather than fancy analysis)
+
+      - if negative, we can improve it through normalization with minmax method or standardization/std deviation -> tf.moments (square root of variance) `features.sub(mean).div(variance.pow(0.5))`
+
+      - need to apply same standardization (mean/variance) in both train/test functions to the data i.e. can create a function called processFeatures
+
+      - be careful as column of 1s may be standardized to -0.999995 - make sure to add 1s column after standardizing so it's unaffected; tensorflow runtime can affect the output as well i.e webgl in the browser vs. node server runtime
+
+      - may need to adjust learning rate i.e. increasing to 0.1 or until we don't see any more improvements (it may ping pong back and forth)
+
+        - Learning Rate Optimization Methods: Adam, Adagrad, RMSProp, Momentum
+
+        - Custom learning rate optimizer: with every iteration of GD, calculate exact value of MSE and store it
+
+          - After running an iteration of GD, look at the current MSE and the old MSE
+
+          - If MSE went up then we did a bad update, so divide learning rate by 2
+
+          - If MSE went down then we are going in right direction, increate LR by 5%
+
+      - can bring in more features to see if it improves accuracy aka multivariate linear regression
+
+        - MPG = b + (m1 x weight) + (m2 x displacement) + (m3 x horsepower) -> need to find optimal b, m1, m2, m3
+
+      - variations of gradient descent for performance with large datasets
+
+        - using batches (couple observations) of observation set instead rather than give the whole data set aka batch gradient descent to update M and B
+
+        - stochastic gradient descent - using one observation in feature set at a time (updating constantly M/B and may find it faster) - same as batch with size of 1
+
+        - train method carves up 'features' and 'labels' into batches
+
+        - can run less iterations to get decent results
+
+  - making a prediction from the model
+
+    - make tensor with extra columns of 1s, multiply by weights calculated from gradient descent, and get the predictions
